@@ -68,33 +68,46 @@
                 </v-text-field>
               </v-flex>
             </v-layout>
-            <v-layout>
-              <v-flex xs12 sm6 offset-sm3>
-                <v-text-field
-                  name="ingredientsName"
-                  label="IngredientsName"
-                  id="ingredientsName"
-                  v-model="ingredientsName"
-                  color="#43A047"
-                  multi-line
-                  required
-                >
-                </v-text-field>
-              </v-flex>
-            </v-layout>
+            <template v-for="(item, index) in ingredientsArr">
+              <v-layout :key="`${index}name`">
+                <v-flex xs12 sm6 offset-sm3>
+                  <v-text-field
+                    name="ingredientsName"
+                    label="IngredientsName"
+                    id="ingredientsName"
+                    v-model="item.name"
+                    color="#43A047"
+                    multi-line
+                    required
+                  >
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
 
-             <v-layout>
+              <v-layout :key="`${index}quantity`">
+                <v-flex xs12 sm6 offset-sm3>
+                  <v-text-field
+                    name="ingredientsQuantity"
+                    label="IngredientsQuantity"
+                    id="ingredientsQuantity"
+                    v-model="item.quantity"
+                    color="#43A047"
+                    multi-line
+                    required
+                  >
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
+            </template>
+
+            <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
-                <v-text-field
-                  name="ingredientsQuantity"
-                  label="IngredientsQuantity"
-                  id="ingredientsQuantity"
-                  v-model="ingredientsQuantity"
-                  color="#43A047"
-                  multi-line
-                  required
+                <v-btn
+                  class="green darken-1 color"
+                  @click="addIngredient"
                 >
-                </v-text-field>
+                  Add Ingredient
+                </v-btn>
               </v-flex>
             </v-layout>
 
@@ -127,8 +140,10 @@ export default {
       title: "",
       imageUrl: "",
       description: "",
-      ingredientsName: "",
-      ingredientsQuantity: "",
+      ingredientsArr: [{
+        ingredientsName: "",
+        ingredientsQuantity: "",
+      }]
     };
   },
   computed: {
@@ -168,11 +183,11 @@ export default {
       
     },
     addIngredient () {
-  this.ingredients = [...this.ingredients , {
-    ingredientsName: "",
-    ingredientsQuantity: ""
-  }]
-}
+      this.ingredientsArr = [...this.ingredientsArr , {
+        ingredientsName: "",
+        ingredientsQuantity: ""
+      }]
+    }
  
   }
 };
